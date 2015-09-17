@@ -1,4 +1,5 @@
 import React from 'react';
+import Panel from 'react-bootstrap/lib/Panel';
 import marked from 'marked';
 
 export default class Comment extends React.Component {
@@ -8,14 +9,10 @@ export default class Comment extends React.Component {
 
   render() {
     let rawMarkup = marked(this.props.children.toString(), {sanitize: true});
-    let classStr = `comment ${this.comment.sending ? 'sending' : ''}`;
     return (
-      <div className={classStr}>
-        <h2 className="commentAuthor">
-          {this.comment.author}
-        </h2>
+      <Panel header={this.comment.author}  bsStyle={this.comment.sending ? 'warning' : 'primary'}>
         <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
-      </div>
+      </Panel>
     );
   }
 }
